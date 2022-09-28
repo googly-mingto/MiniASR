@@ -3,7 +3,7 @@
 . ./path.sh || exit 1;
 
 stage=1
-stop_stage=4
+stop_stage=3
 model_name=ctc_libri-10h_char
 ckpt= model/ctc_libri-10h_char/epoch=44-step=3869.ckpt
 
@@ -72,16 +72,3 @@ if [ ${stage} -le 3 ] && [ ${stop_stage} -ge 3 ]; then
     fi
 fi
 
-if [ ${stage} -le 4 ] && [ ${stop_stage} -ge 4 ]; then
-    echo "Stage 4: Test E2E ASR"
-    mkdir -p model
-
-    if [ -z "$ckpt" ]; then
-        echo "Error: ckpt must be specified during testing!" || exit 1
-    else
-        run_asr.py \
-            --config config/test.yaml \
-            --test \
-            --ckpt $ckpt
-    fi
-fi
